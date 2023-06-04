@@ -21,6 +21,8 @@ import { DeleteDialogComponent } from './pages/delete-dialog/delete-dialog.compo
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { EffectsModule } from '@ngrx/effects';
+import { AlumnosEffects } from './store/alumnos.effects';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         path: ':id',
         component: AlumnosDetallesComponent,
       }
-    ])
+    ]),
+    EffectsModule.forFeature([AlumnosEffects])
   ],
   exports: [AlumnosComponent]
 })

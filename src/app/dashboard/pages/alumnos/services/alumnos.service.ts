@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Alumno } from '../models';
 import { BehaviorSubject, Observable, map, tap, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environment/environment.prod';
+import { environment } from 'src/environment/environment';
 
 const milisecondsHour = 3600000;
 

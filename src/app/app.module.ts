@@ -1,15 +1,17 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import localeEsMX from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { actionReducerMap } from './store/index';
 
 registerLocaleData(localeEsMX, 'es-MX');
 
@@ -23,7 +25,10 @@ registerLocaleData(localeEsMX, 'es-MX');
     // DashboardModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(actionReducerMap, {}),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+    EffectsModule.forRoot([])
   ],
   providers: [{provide: LOCALE_ID, useValue: 'es-MX'} ],
   bootstrap: [AppComponent]

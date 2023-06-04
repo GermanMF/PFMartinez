@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
-// Cuando se implementa el forChild, no se importan los modulos por que se crearian rutas extrañas
-// import { AlumnosModule } from './pages/alumnos/alumnos.module';
-// import { CursosModule } from './pages/cursos/cursos.module';
-// import { InscripcionesModule } from './pages/inscripciones/inscripciones.module';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -14,11 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-// import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './pages/main/main.component';
-import { AuthService } from '../core/auth/services/auth.service';
 
 const routes: Routes = [
   {
