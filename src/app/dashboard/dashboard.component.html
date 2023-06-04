@@ -1,0 +1,80 @@
+<mat-drawer-container class="sidenav-container" hasBackdrop="true" autosize>
+  <mat-drawer #drawer class="sidenav-size" mode="side">
+    <p>¡Bienvenido al portal de alumnos!</p>
+    <br />
+    <h3>
+      Logueado:
+      <b>{{
+        (authUser$ | async)?.nombre + " " + (authUser$ | async)?.apellido
+      }}</b>
+    </h3>
+    <ng-container [ngSwitch]="(authUser$ | async)?.role">
+      <h4 *ngSwitchCase="'admin'">Admin</h4>
+      <h4 *ngSwitchDefault>User</h4>
+    </ng-container>
+
+    <mat-list role="list">
+      <mat-list-item *ngFor="let linkProperty of linkProperties">
+        <button mat-flat-button routerLink="{{ linkProperty.route }}">
+          {{ "Lista de " + linkProperty.name }}
+        </button>
+      </mat-list-item>
+      <mat-list-item *ngIf="(authUser$ | async)?.role === 'admin'">
+        <button mat-flat-button
+        routerLink="usuarios">Usuarios</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <mat-toolbar color="primary" class="toolbar-height">
+      <button
+        mat-icon-button
+        class="sidenav-icon"
+        aria-label="icon-button with menu icon"
+        (click)="drawer.toggle()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>
+        <button mat-button routerLink="dashboard">Sistema de alumnos</button>
+      </span>
+      <a
+        mat-icon-button
+        href="https://github.com/GermanMF/APIRESTMartinez"
+        target="_blank"
+        class="sidenav-icon favorite-icon"
+        aria-label="icon-button with info icon"
+        matTooltip="Repositorio de este proyecto"
+      >
+        <mat-icon>info</mat-icon>
+      </a>
+      <ng-container [ngSwitch]="true">
+        <span *ngSwitchCase="getRoute().includes('alumnos')">Alumnos</span>
+        <span *ngSwitchCase="getRoute().includes('cursos')">Cursos</span>
+        <span *ngSwitchCase="getRoute().includes('inscripciones')"
+          >Inscripciones</span
+        >
+        <span *ngSwitchCase="getRoute().includes('usuarios')"
+        >Usuarios</span
+      >
+      </ng-container>
+      <span class="toolbar-spacer"></span>
+      <span
+        >{{ (authUser$ | async)?.nombre + " " + (authUser$ | async)?.apellido }}
+      </span>
+      <a
+        mat-icon-button
+        (click)="logout()"
+        class="sidenav-icon favorite-icon"
+        aria-label="icon-button with info icon"
+        matTooltip="Salir"
+      >
+        <mat-icon>logout</mat-icon>
+      </a>
+    </mat-toolbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</mat-drawer-container>

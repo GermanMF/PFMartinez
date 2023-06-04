@@ -1,0 +1,74 @@
+<h2 class="title-detalle" mat-dialog-title>
+  <button
+    mat-icon-button
+    matTooltip="Regresar a pantalla de cursos"
+    routerLink="/dashboard/cursos"
+  >
+    <mat-icon>keyboard_return</mat-icon>
+  </button>
+  Detalles de la materia: <b>{{ curso?.materia }}</b>
+</h2>
+<div class="form-container">
+  <form>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label> Materia </mat-label>
+            <input matInput disabled value="{{ curso?.materia }}" />
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label> Tutor </mat-label>
+            <input matInput disabled value="{{ curso?.tutor }}" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row subsequentRow">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label> Cupos </mat-label>
+            <input type="number" matInput disabled value="{{ curso?.cupos }}" />
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label> Grupos </mat-label>
+            <input
+              type="number"
+              matInput
+              disabled
+              value="{{ curso?.grupos }}"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <p>Alumnos Inscritos</p>
+          <div
+          class="col-6 alumnos-align"
+          *ngFor="let alumno of alumnosInscritos(curso?.materia!)"
+        >
+          <mat-list>
+            <mat-list-item>
+              <div class="row ">
+                <div class="col-6 materia-row-align">{{ alumno | nombreCompleto }}</div>
+                <div class="col-6">
+                  <button
+                  mat-icon-button
+                  color="warn"
+                  matTooltip="Desinscribir alumno: {{ alumno | nombreCompleto }}"
+                  (click)="deleteAlumno(alumno!, curso?.id!)"
+                              >
+                  <mat-icon>remove</mat-icon>
+                              </button>
+                </div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+        </div>
+      </div>
+  </form>
+</div>

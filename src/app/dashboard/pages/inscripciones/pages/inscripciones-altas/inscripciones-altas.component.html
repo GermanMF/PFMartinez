@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>Añadir nueva inscripción</h2>
+<mat-dialog-content>
+  <form
+    [formGroup]="inscripcionesForm"
+    (ngSubmit)="onSubmit()"
+    id="inscripcionAltas"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label> Materia </mat-label>
+            <mat-select [formControl]="materiaControl">
+              <mat-option *ngFor="let materia of cursos"
+              [value]="materia.id">
+              {{materia.materia}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="materiaControl.hasError('required')">
+              Campo requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label> Alumno </mat-label>
+            <mat-select [formControl]="alumnosControl" multiple>
+              <!-- <mat-select-trigger>
+                {{ alumnosControl.value?.[0] || '' }}
+                <span
+                  *ngIf="(alumnosControl.value?.length || 0) > 1"
+                  class="additional-selection"
+                >
+                  (+{{ (alumnosControl.value?.length || 0) - 1 }}
+                  {{
+                    alumnosControl.value?.length === 2 ? "other" : "others"
+                  }})
+                </span>
+              </mat-select-trigger> -->
+              <mat-option
+                *ngFor="let alumno of alumnos"
+                [value]="alumno.id"
+                >
+                {{ alumno | nombreCompleto }}</mat-option
+              >
+            </mat-select>
+            <mat-error *ngIf="alumnosControl.hasError('required')">
+              Campo requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-button
+    type="submit"
+    form="inscripcionAltas"
+    [disabled]="!inscripcionesForm.valid"
+    [mat-dialog-close]="true"
+  >
+    Añadir materia
+  </button>
+</mat-dialog-actions>
